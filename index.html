@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Anatoly's site · AI exploration hub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional tiny style for the new pdf link to blend seamlessly */
+        .dev-sub-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.6rem 1.1rem 0.85rem 1.1rem;
+            text-decoration: none;
+            border-top: 1px solid #eef2f8;
+            margin-top: 0.2rem;
+            transition: background 0.1s;
+            border-radius: 0 0 1rem 1rem;
+        }
+        .dev-sub-link:hover {
+            background: #fafcff;
+            border-top-color: #d4e3ef;
+        }
+        .sub-icon {
+            font-size: 1.3rem;
+            width: 38px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .sub-info {
+            flex: 1;
+        }
+        .sub-name {
+            font-weight: 600;
+            color: #2c6288;
+            font-size: 0.9rem;
+        }
+        .sub-desc {
+            font-size: 0.7rem;
+            color: #6d8eaa;
+        }
+        .sub-arrow {
+            color: #8ba5bc;
+            font-size: 1.1rem;
+        }
+        .dev-item-wrapper {
+            background: linear-gradient(135deg, #f8fafd 0%, #ffffff 100%);
+            border-radius: 1.1rem;
+            border: 1px solid #e2edf5;
+            transition: 0.15s;
+            margin-bottom: 0.9rem;
+            overflow: hidden;
+        }
+        .dev-item-wrapper:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 14px -8px rgba(0, 0, 0, 0.12);
+            border-color: #cde0ed;
+        }
+        .dev-item {
+            margin-bottom: 0;
+            background: transparent;
+            border: none;
+        }
+        .dev-item-wrapper .dev-item:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Right Sidebar Container */
+        .right-sidebar {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 340px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ClustrMaps Widget - static image */
+        .clustrmaps-widget {
+            background: white;
+            border-radius: 1.1rem;
+            border: 1px solid #e2edf5;
+            overflow: hidden;
+            background: linear-gradient(105deg, #f9fdfe 0%, #ffffff 100%);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: 0.2s;
+        }
+        .clustrmaps-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        .clustrmaps-header {
+            padding: 0.9rem 1.2rem 0.5rem 1.2rem;
+            border-bottom: 1px solid #eef2f8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: linear-gradient(135deg, #1a4d6b 0%, #1f6288 100%);
+            color: white;
+        }
+        .clustrmaps-header h4 {
+            margin: 0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .clustrmaps-badge {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .clustrmaps-content {
+            padding: 16px;
+            text-align: center;
+            background: #ffffff;
+        }
+        .clustrmaps-content a {
+            display: block;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        .clustrmaps-content a:hover {
+            transform: scale(1.02);
+        }
+        .clustrmaps-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+        .clustrmaps-note {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.6rem;
+            color: #9bb5cb;
+            text-align: center;
+            border-top: 1px solid #eef2f8;
+            background: #fafdff;
+        }
+
+        /* Daily Visitors Counter Widget */
+        .daily-counter {
+            background: white;
+            border-radius: 1.1rem;
+            border: 1px solid #e2edf5;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: 0.2s;
+        }
+        .daily-counter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        .counter-header {
+            padding: 0.7rem 1.2rem;
+            background: linear-gradient(135deg, #e8f3f9 0%, #dcebf3 100%);
+            border-bottom: 1px solid #cde0ed;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .counter-header h4 {
+            margin: 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #1a4d6b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .counter-stats {
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .today-count {
+            text-align: center;
+            flex: 1;
+        }
+        .today-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1f6288;
+            line-height: 1;
+        }
+        .today-label {
+            font-size: 0.6rem;
+            color: #6f9abb;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+        .total-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2c6288;
+        }
+        .reset-counter {
+            background: none;
+            border: 1px solid #cde0ed;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: #6f9abb;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .reset-counter:hover {
+            background: #eef2f8;
+            border-color: #9bbdd4;
+            color: #1f6288;
+        }
+        .counter-footer {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.55rem;
+            color: #9bb5cb;
+            text-align: center;
+            border-top: 1px solid #eef2f8;
+            background: #fafdff;
+        }
+
+        /* Countries Stats under map */
+        .countries-stats {
+            background: white;
+            border-radius: 1.1rem;
+            border: 1px solid #e2edf5;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+        .countries-header {
+            padding: 0.7rem 1.2rem;
+            background: #f8fbfe;
+            border-bottom: 1px solid #eef2f8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .countries-header h4 {
+            margin: 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #2c6288;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .countries-badge {
+            background: #e4f0f9;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #1f6e8c;
+        }
+        .countries-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 0;
+        }
+        .country-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem 1.2rem;
+            border-bottom: 1px solid #f0f4f9;
+            transition: background 0.1s;
+        }
+        .country-item:hover {
+            background: #f8fbfe;
+        }
+        .country-flag {
+            font-size: 1.2rem;
+            width: 28px;
+            text-align: center;
+        }
+        .country-name {
+            flex: 1;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #3a5a74;
+        }
+        .country-count {
+            background: #e4f0f9;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #1f6e8c;
+        }
+        .empty-countries {
+            padding: 1.5rem;
+            text-align: center;
+            color: #8aaec2;
+            font-size: 0.7rem;
+        }
+        .current-visitor-row {
+            padding: 0.6rem 1.2rem;
+            background: #f0f6fb;
+            border-bottom: 1px solid #e2edf5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .visitor-flag-large {
+            font-size: 1.6rem;
+        }
+        .visitor-detail {
+            flex: 1;
+        }
+        .visitor-country-name {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #1f4e6e;
+        }
+        .visitor-city-text {
+            font-size: 0.65rem;
+            color: #5c86a3;
+        }
+
+        /* Links Compact Widget */
+        .links-compact-widget {
+            background: white;
+            border-radius: 1.1rem;
+            border: 1px solid #e2edf5;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            margin-top: 1rem;
+        }
+        .links-compact-header {
+            padding: 0.7rem 1.2rem;
+            background: #f8fbfe;
+            border-bottom: 1px solid #eef2f8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .links-compact-header h4 {
+            margin: 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #2c6288;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .links-compact-list {
+            padding: 0.3rem 0;
+        }
+        .link-item-compact {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.7rem 1.2rem;
+            text-decoration: none;
+            border-bottom: 1px solid #f0f4f9;
+            transition: background 0.1s;
+            color: #2c6288;
+        }
+        .link-item-compact:hover {
+            background: #f8fbfe;
+        }
+        .link-icon-compact {
+            font-size: 1.3rem;
+            width: 32px;
+            text-align: center;
+        }
+        .link-info-compact {
+            flex: 1;
+        }
+        .link-name-compact {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #1f4e6e;
+        }
+        .link-url-compact {
+            font-size: 0.6rem;
+            color: #8aaec2;
+            font-family: monospace;
+        }
+        .link-arrow-compact {
+            color: #b8cbd9;
+            font-size: 1rem;
+            transition: transform 0.1s;
+        }
+        .link-item-compact:hover .link-arrow-compact {
+            transform: translateX(3px);
+            color: #1f6288;
+        }
+        
+        /* Author Contact Card - NEW: email contact section */
+        .author-contact {
+            background: linear-gradient(135deg, #fef9e8 0%, #fff7e6 100%);
+            border-radius: 1.1rem;
+            border: 1px solid #ffe8c7;
+            overflow: hidden;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+        .author-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        .author-header {
+            padding: 0.8rem 1.2rem;
+            background: linear-gradient(135deg, #e6d5b8 0%, #dac8a4 100%);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #f0e0c0;
+        }
+        .author-header h4 {
+            margin: 0;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #5a3e1b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+        .author-body {
+            padding: 1rem 1.2rem;
+            text-align: center;
+        }
+        .email-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 0.7rem 1.4rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1f6288;
+            border: 1px solid #ffe0aa;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .email-link:hover {
+            background: #f0f7fc;
+            border-color: #c2a15b;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .author-note {
+            margin-top: 10px;
+            font-size: 0.6rem;
+            color: #b8956a;
+        }
+        
+        /* Hide original sidebar links widget and feedback wrapper */
+        .feedback-wrapper {
+            display: none;
+        }
+        .original-links-widget {
+            display: none;
+        }
+        
+        /* Adjust main content spacing */
+        body {
+            padding-right: 10px;
+        }
+        .main-grid {
+            margin-right: 360px;
+        }
+        
+        @media (max-width: 1000px) {
+            .main-grid {
+                margin-right: 0;
+            }
+            .right-sidebar {
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            body {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="site-header">
+    <div class="site-title">
+        <span>⚡</span> Anatoly's site
+    </div>
+    <div class="subhead">AI tools · experiments · curated links</div>
+</div>
+
+<!-- RIGHT SIDEBAR CONTAINER -->
+<div class="right-sidebar">
+    <!-- CLUSTRMAPS WIDGET - static image map -->
+    <div class="clustrmaps-widget">
+        <div class="clustrmaps-header">
+            <h4><span>🌍</span> Visitor geography · live map</h4>
+            <span class="clustrmaps-badge">click for stats</span>
+        </div>
+        <div class="clustrmaps-content">
+            <a href='https://clustrmaps.com/site/1c9w4' title='Visit tracker' target="_blank" rel="noopener">
+                <img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=tt&d=BqDLdvKVej3WwDC-jVb1maFvBjfHLOzgN2FgLVECZK8&co=2d78ad&ct=ffffff' alt='Visitor map' />
+            </a>
+        </div>
+        <div class="clustrmaps-note">
+            📍 real-time visitor locations · click map for detailed statistics
+        </div>
+    </div>
+
+    <!-- DAILY VISITORS COUNTER -->
+    <div class="daily-counter">
+        <div class="counter-header">
+            <h4><span>📅</span> Today's visitors</h4>
+        </div>
+        <div class="counter-stats">
+            <div class="today-count">
+                <div class="today-number" id="todayCount">0</div>
+                <div class="today-label">visitors today</div>
+            </div>
+            <div class="today-count">
+                <div class="total-number" id="totalAllTimeCount">0</div>
+                <div class="today-label">all time</div>
+            </div>
+            <button id="resetDailyCounter" class="reset-counter" title="reset today's counter">reset day</button>
+        </div>
+        <div class="counter-footer">
+            🔄 resets automatically at midnight · unique visitors only
+        </div>
+    </div>
+
+    <!-- COUNTRIES STATISTICS - directly under the counter -->
+    <div class="countries-stats">
+        <div class="countries-header">
+            <h4><span>📊</span> Top countries</h4>
+            <span class="countries-badge" id="topCountriesBadge">loading...</span>
+        </div>
+        <div id="currentVisitorRow" class="current-visitor-row">
+            <div class="visitor-flag-large">🌍</div>
+            <div class="visitor-detail">
+                <div class="visitor-country-name" id="currentCountryDisplay">detecting...</div>
+                <div class="visitor-city-text" id="currentCityDisplay"></div>
+            </div>
+        </div>
+        <div id="countriesList" class="countries-list">
+            <div class="empty-countries">loading statistics...</div>
+        </div>
+    </div>
+
+    <!-- AUTHOR EMAIL CONTACT CARD - NEW SECTION (English only) -->
+    <div class="author-contact">
+        <div class="author-header">
+            <h4><span>✉️</span> Contact the author</h4>
+        </div>
+        <div class="author-body">
+            <a href="mailto:item1000@gmail.com" class="email-link" id="authorEmailLink">
+                <span>📧</span> item1000@gmail.com
+            </a>
+            <div class="author-note">
+                📬 Feel free to reach out for collaborations, feedback, or questions
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Grid: Resources + Developments (Links moved under Developments) -->
+<div class="main-grid">
+    <!-- LEFT COLUMN: RESOURCES -->
+    <div class="card">
+        <div class="card-header">
+            <h2>📚 AI tools & resources</h2>
+            <p>direct access to AI playgrounds</p>
+        </div>
+        <div class="card-content">
+            <div class="resources-grid">
+                <a href="https://chat.deepseek.com/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🔍</span>
+                    <div class="res-info"><div class="res-name">DeepSeek Chat</div><div class="res-url">deepseek.com</div></div>
+                </a>
+                <a href="https://chat.qwenlm.ai/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🐉</span>
+                    <div class="res-info"><div class="res-name">Qwen LM</div><div class="res-url">chat.qwenlm.ai</div></div>
+                </a>
+                <a href="https://app.sesame.com/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🔑</span>
+                    <div class="res-info"><div class="res-name">Sesame</div><div class="res-url">app.sesame.com</div></div>
+                </a>
+                <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">📓</span>
+                    <div class="res-info"><div class="res-name">NotebookLM</div><div class="res-url">notebooklm.google</div></div>
+                </a>
+                <a href="https://gemini.google.com/app" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">✨</span>
+                    <div class="res-info"><div class="res-name">Gemini</div><div class="res-url">gemini.google.com</div></div>
+                </a>
+                <a href="http://aistudio.google.com/live" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🤖</span>
+                    <div class="res-info"><div class="res-name">Google AI Studio</div><div class="res-url">aistudio.google.com</div></div>
+                </a>
+                <a href="https://grok.com/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🌌</span>
+                    <div class="res-info"><div class="res-name">Grok (xAI)</div><div class="res-url">grok.com</div></div>
+                </a>
+                <a href="https://chatgpt.com/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">💬</span>
+                    <div class="res-info"><div class="res-name">ChatGPT</div><div class="res-url">chatgpt.com</div></div>
+                </a>
+                <a href="https://character.ai/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🎭</span>
+                    <div class="res-info"><div class="res-name">Character.AI</div><div class="res-url">character.ai</div></div>
+                </a>
+                <a href="https://lmarena.ai/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🏟️</span>
+                    <div class="res-info"><div class="res-name">LM Arena</div><div class="res-url">lmarena.ai</div></div>
+                </a>
+                <a href="https://vheer.com/dashboard" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">⚡</span>
+                    <div class="res-info"><div class="res-name">Vheer</div><div class="res-url">vheer.com</div></div>
+                </a>
+                <a href="https://videotranscriber.ai/" target="_blank" rel="noopener" class="resource-item">
+                    <span class="res-icon">🎥</span>
+                    <div class="res-info"><div class="res-name">VideoTranscriber AI</div><div class="res-url">videotranscriber.ai</div></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT COLUMN: DEVELOPMENTS + LINKS -->
+    <div class="card">
+        <div class="card-header">
+            <h2>🛠️ Developments</h2>
+            <p>applied AI experiments & labs</p>
+        </div>
+        <div class="card-content">
+            <div class="dev-item-wrapper">
+                <div class="dev-item">
+                    <a href="https://item1000-collab.github.io/ai/Developments/Visual%20Style%20Engine%20for%201000%20Styles.html" target="_blank" rel="noopener" class="dev-link">
+                        <div class="dev-icon">🎨</div>
+                        <div class="dev-info">
+                            <div class="dev-name">Visual Style Engine</div>
+                            <div class="dev-desc">1000+ styles · real-time style lab</div>
+                        </div>
+                        <div class="arrow">→</div>
+                    </a>
+                </div>
+                <a href="https://item1000-collab.github.io/ai/Developments/Visual%20Style%20Guide%20for%20NotebookLM%20Presentations.pdf" target="_blank" rel="noopener" class="dev-sub-link">
+                    <span class="sub-icon">📄</span>
+                    <div class="sub-info">
+                        <div class="sub-name">NotebookLM Style Guide (PDF)</div>
+                        <div class="sub-desc">visual style guide for presentations · reference</div>
+                    </div>
+                    <span class="sub-arrow">↗</span>
+                </a>
+            </div>
+
+            <!-- GitHub Link Builder -->
+            <div class="dev-item-wrapper">
+                <div class="dev-item">
+                    <a href="https://item1000-collab.github.io/ai/Developments/GitHub%20Link%20Builder.html" target="_blank" rel="noopener" class="dev-link">
+                        <div class="dev-icon">🔗</div>
+                        <div class="dev-info">
+                            <div class="dev-name">GitHub Link Builder</div>
+                            <div class="dev-desc">convert filename to raw GitHub Pages URL · copy instantly</div>
+                        </div>
+                        <div class="arrow">→</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINKS WIDGET (includes Engoo English classes link) -->
+        <div class="links-compact-widget">
+            <div class="links-compact-header">
+                <h4><span>🔗</span> Links</h4>
+            </div>
+            <div class="links-compact-list">
+                <a href="https://item1000.blogspot.com/" target="_blank" rel="noopener" class="link-item-compact">
+                    <span class="link-icon-compact">📝</span>
+                    <div class="link-info-compact">
+                        <div class="link-name-compact">Anatoly's blog</div>
+                        <div class="link-url-compact">articles, notes & thoughts</div>
+                    </div>
+                    <span class="link-arrow-compact">→</span>
+                </a>
+                <a href="https://www.imdb.com/list/ls050344052/?ref_=uspf_t_1" target="_blank" rel="noopener" class="link-item-compact">
+                    <span class="link-icon-compact">🎬</span>
+                    <div class="link-info-compact">
+                        <div class="link-name-compact">Anatoly's list of movies</div>
+                        <div class="link-url-compact">movies & ratings collection</div>
+                    </div>
+                    <span class="link-arrow-compact">→</span>
+                </a>
+                <a href="https://item1000-collab.github.io/ai/Global%20Distance%20Club/index.html" target="_blank" rel="noopener" class="link-item-compact">
+                    <span class="link-icon-compact">🌍</span>
+                    <div class="link-info-compact">
+                        <div class="link-name-compact">Global Distance Club</div>
+                        <div class="link-url-compact">main hub · interactive journey</div>
+                    </div>
+                    <span class="link-arrow-compact">→</span>
+                </a>
+                <a href="https://item1000-collab.github.io/ai/News%20Clips/News%20Clips.html" target="_blank" rel="noopener" class="link-item-compact">
+                    <span class="link-icon-compact">📰</span>
+                    <div class="link-info-compact">
+                        <div class="link-name-compact">News Clips</div>
+                        <div class="link-url-compact">weekly · global · open mind discussions</div>
+                    </div>
+                    <span class="link-arrow-compact">→</span>
+                </a>
+                <a href="https://item1000-collab.github.io/ai/Engoo/index.html" target="_blank" rel="noopener" class="link-item-compact">
+                    <span class="link-icon-compact">📖</span>
+                    <div class="link-info-compact">
+                        <div class="link-name-compact">English classes · Engoo</div>
+                        <div class="link-url-compact">speaking practice & lessons hub</div>
+                    </div>
+                    <span class="link-arrow-compact">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- DAILY COUNTER SYSTEM ----------
+        const DAILY_COUNTER_KEY = 'daily_visitor_counter';
+        const ALL_TIME_KEY = 'all_time_visitor_count';
+        
+        function getTodayDate() {
+            const now = new Date();
+            return now.toISOString().split('T')[0];
+        }
+        
+        function loadDailyCounter() {
+            const stored = localStorage.getItem(DAILY_COUNTER_KEY);
+            if (stored) {
+                try {
+                    const data = JSON.parse(stored);
+                    if (data.date === getTodayDate()) {
+                        return data.count;
+                    }
+                } catch(e) {}
+            }
+            return 0;
+        }
+        
+        function loadAllTimeCount() {
+            const stored = localStorage.getItem(ALL_TIME_KEY);
+            if (stored) {
+                try {
+                    return parseInt(stored) || 0;
+                } catch(e) { return 0; }
+            }
+            return 0;
+        }
+        
+        function saveDailyCounter(count) {
+            localStorage.setItem(DAILY_COUNTER_KEY, JSON.stringify({
+                date: getTodayDate(),
+                count: count
+            }));
+        }
+        
+        function saveAllTimeCount(count) {
+            localStorage.setItem(ALL_TIME_KEY, count);
+        }
+        
+        function incrementDailyCounter() {
+            let dailyCount = loadDailyCounter();
+            let allTimeCount = loadAllTimeCount();
+            
+            const visitorTodayKey = `visitor_today_${getTodayDate()}`;
+            const alreadyCountedToday = sessionStorage.getItem(visitorTodayKey) || localStorage.getItem(visitorTodayKey);
+            
+            if (!alreadyCountedToday) {
+                dailyCount++;
+                allTimeCount++;
+                saveDailyCounter(dailyCount);
+                saveAllTimeCount(allTimeCount);
+                sessionStorage.setItem(visitorTodayKey, 'true');
+                localStorage.setItem(visitorTodayKey, 'true');
+            }
+            
+            updateCounterDisplay();
+            return { daily: dailyCount, allTime: allTimeCount };
+        }
+        
+        function updateCounterDisplay() {
+            const dailySpan = document.getElementById('todayCount');
+            const allTimeSpan = document.getElementById('totalAllTimeCount');
+            if (dailySpan) dailySpan.innerText = loadDailyCounter();
+            if (allTimeSpan) allTimeSpan.innerText = loadAllTimeCount();
+        }
+        
+        function resetDailyCounter() {
+            if (confirm('Reset today\'s visitor counter? The all-time total will remain unchanged.')) {
+                saveDailyCounter(0);
+                const todayKey = `visitor_today_${getTodayDate()}`;
+                localStorage.removeItem(todayKey);
+                updateCounterDisplay();
+                showMiniToast('📊 today\'s counter reset');
+            }
+        }
+        
+        // ---------- VISITOR STATISTICS SYSTEM ----------
+        const STATS_KEY = 'visitor_country_stats_v5';
+        const VISITOR_SESSION_KEY = 'visitor_recorded_session_v5';
+        
+        function getFlagEmoji(countryCode) {
+            if (!countryCode) return '🏳️';
+            const codePoints = countryCode.toUpperCase().split('').map(ch => 127397 + ch.charCodeAt(0));
+            return String.fromCodePoint(...codePoints);
+        }
+        
+        function loadStats() {
+            const stored = localStorage.getItem(STATS_KEY);
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch(e) { return { countries: {}, totalUnique: 0, visitorsLog: [] }; }
+            }
+            return { countries: {}, totalUnique: 0, visitorsLog: [] };
+        }
+        
+        function saveStats(stats) {
+            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+        }
+        
+        function recordVisitor(countryName, countryCode, cityName, ipAddress) {
+            const stats = loadStats();
+            let visitorKey = ipAddress;
+            
+            if (!visitorKey || visitorKey === 'unknown' || visitorKey === '0.0.0.0') {
+                let fallbackId = localStorage.getItem(VISITOR_SESSION_KEY);
+                if (!fallbackId) {
+                    fallbackId = 'anon_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
+                    localStorage.setItem(VISITOR_SESSION_KEY, fallbackId);
+                }
+                visitorKey = fallbackId;
+            } else {
+                visitorKey = 'ip_' + ipAddress;
+            }
+            
+            if (!stats.visitorsLog) stats.visitorsLog = [];
+            
+            let isNew = false;
+            if (!stats.visitorsLog.includes(visitorKey)) {
+                stats.visitorsLog.push(visitorKey);
+                const countryKey = countryCode ? countryCode.toUpperCase() : 'UNKNOWN';
+                if (!stats.countries[countryKey]) {
+                    stats.countries[countryKey] = {
+                        name: countryName || 'Unknown',
+                        code: countryKey,
+                        count: 0,
+                        flag: getFlagEmoji(countryKey)
+                    };
+                }
+                stats.countries[countryKey].count += 1;
+                stats.totalUnique = stats.visitorsLog.length;
+                saveStats(stats);
+                isNew = true;
+            }
+            
+            if (isNew) incrementDailyCounter();
+            return isNew;
+        }
+        
+        function updateCurrentVisitorUI(countryName, countryCode, cityName, error = false) {
+            const countryDisplayDiv = document.getElementById('currentCountryDisplay');
+            const cityDisplayDiv = document.getElementById('currentCityDisplay');
+            const flagSpan = document.querySelector('#currentVisitorRow .visitor-flag-large');
+            const rowDiv = document.getElementById('currentVisitorRow');
+            
+            if (error) {
+                if (countryDisplayDiv) countryDisplayDiv.innerHTML = '🌐 location detection unavailable';
+                if (cityDisplayDiv) cityDisplayDiv.innerHTML = 'try refreshing the page';
+                if (rowDiv) rowDiv.style.background = '#fff5f0';
+                return;
+            }
+            if (rowDiv) rowDiv.style.background = '#f0f6fb';
+            if (countryDisplayDiv && countryName) {
+                const flag = getFlagEmoji(countryCode);
+                if (flagSpan) flagSpan.innerText = flag;
+                countryDisplayDiv.innerHTML = countryName;
+            }
+            if (cityDisplayDiv && cityName) {
+                cityDisplayDiv.innerHTML = `📍 ${escapeHtml(cityName)}`;
+            } else if (cityDisplayDiv) {
+                cityDisplayDiv.innerHTML = `✨ welcome to the AI hub`;
+            }
+        }
+        
+        function renderCountriesList() {
+            const stats = loadStats();
+            const container = document.getElementById('countriesList');
+            const badge = document.getElementById('topCountriesBadge');
+            if (!container) return;
+            const countryCount = Object.keys(stats.countries).length;
+            if (badge) badge.innerText = `${stats.totalUnique || 0} visitors · ${countryCount} countries`;
+            
+            if (Object.keys(stats.countries).length === 0) {
+                container.innerHTML = '<div class="empty-countries">🌍 no visitors recorded yet — be the first!</div>';
+                return;
+            }
+            
+            const sortedCountries = Object.entries(stats.countries)
+                .sort((a, b) => b[1].count - a[1].count)
+                .slice(0, 15);
+            
+            container.innerHTML = sortedCountries.map(([code, data]) => {
+                return `
+                    <div class="country-item">
+                        <div class="country-flag">${data.flag || getFlagEmoji(code)}</div>
+                        <div class="country-name">${escapeHtml(data.name)}</div>
+                        <div class="country-count">${data.count}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        async function detectVisitor() {
+            const apis = [
+                { url: 'https://ipapi.co/json/', parser: (data) => ({ country: data.country_name, countryCode: data.country_code, city: data.city, ip: data.ip }) },
+                { url: 'https://freeipapi.com/api/json/', parser: (data) => ({ country: data.countryName, countryCode: data.countryCode, city: data.cityName, ip: data.ipAddress }) }
+            ];
+            
+            let locationData = null;
+            let ipAddress = null;
+            
+            for (const api of apis) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+                    const response = await fetch(api.url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data && (data.country || data.country_name)) {
+                            locationData = api.parser(data);
+                            ipAddress = locationData.ip;
+                            break;
+                        }
+                    }
+                } catch (e) {}
+            }
+            
+            if (locationData && locationData.country) {
+                updateCurrentVisitorUI(locationData.country, locationData.countryCode, locationData.city || '');
+                recordVisitor(locationData.country, locationData.countryCode, locationData.city || '', ipAddress || 'unknown');
+                renderCountriesList();
+            } else {
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                let guessedCountry = 'Global Visitor';
+                if (timezone) {
+                    const tzParts = timezone.split('/');
+                    if (tzParts[0] === 'Europe') guessedCountry = 'Europe';
+                    else if (tzParts[0] === 'Asia') guessedCountry = 'Asia';
+                    else if (tzParts[0] === 'America') guessedCountry = 'Americas';
+                }
+                updateCurrentVisitorUI(guessedCountry, 'INT', timezone || 'your region', true);
+                recordVisitor(guessedCountry, 'INT', timezone || 'unknown', `session_${Date.now()}`);
+                renderCountriesList();
+            }
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        
+        function showMiniToast(msg) {
+            let toast = document.getElementById('compactToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'compactToast';
+                toast.style.position = 'fixed';
+                toast.style.bottom = '20px';
+                toast.style.right = '20px';
+                toast.style.left = 'auto';
+                toast.style.backgroundColor = '#1f2e3cee';
+                toast.style.color = 'white';
+                toast.style.padding = '6px 14px';
+                toast.style.borderRadius = '40px';
+                toast.style.fontSize = '0.7rem';
+                toast.style.zIndex = '1001';
+                toast.style.fontWeight = '500';
+                toast.style.backdropFilter = 'blur(6px)';
+                toast.style.pointerEvents = 'none';
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.2s';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.style.opacity = '1';
+            setTimeout(() => { if(toast) toast.style.opacity = '0'; }, 1700);
+        }
+        
+        // Initialize all counters and visitor detection
+        updateCounterDisplay();
+        renderCountriesList();
+        detectVisitor();
+        
+        const resetBtn = document.getElementById('resetDailyCounter');
+        if (resetBtn) resetBtn.addEventListener('click', resetDailyCounter);
+    })();
+</script>
+</body>
+</html>
