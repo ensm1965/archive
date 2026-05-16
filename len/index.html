@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Engoo English Classes | Conversation Lessons</title>
+  <style>
+    /* ========== RESET & GLOBAL ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5efe7;
+      font-family: system-ui, 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .classes-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      background: transparent;
+    }
+
+    .badge {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      color: #7f6b5a;
+      margin-bottom: 1rem;
+    }
+
+    .logo {
+      font-weight: 800;
+      background: #2c3e2f;
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+    }
+
+    .header h1 {
+      font-size: 2.7rem;
+      font-weight: 700;
+      color: #2c3e2f;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #7f6b5a;
+      font-weight: 400;
+    }
+
+    .mobile-break {
+      display: inline;
+    }
+
+    /* ========== GRID CARDS ========== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 2.5rem 0 2rem;
+    }
+
+    .class-card {
+      background: #ffffff;
+      border-radius: 1.75rem;
+      overflow: hidden;
+      box-shadow: 0 15px 35px -12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .class-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.15);
+    }
+
+    /* цветные фоны (без картинок) */
+    .card-media {
+      height: 180px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* чистые цвета, как в прошлой версии */
+    .bangladesh {
+      background: linear-gradient(135deg, #1e6b5e 0%, #20b2aa 100%);
+    }
+    .honduras {
+      background: linear-gradient(135deg, #d4a373 0%, #fa9e4d 100%);
+    }
+    .burundi {
+      background: linear-gradient(135deg, #2c5f2d 0%, #6a9c78 100%);
+    }
+    .friends {
+      background: linear-gradient(135deg, #2c3e2f 0%, #5a7d5c 100%);
+    }
+    .philippines {
+      background: linear-gradient(135deg, #d45a2b 0%, #f4a261 100%);
+    }
+    .nicaragua {
+      background: linear-gradient(135deg, #1c6e5c 0%, #2a9d8f 100%);
+    }
+    .pride-prejudice {
+      background: linear-gradient(135deg, #7b4b3a 0%, #c28b6e 100%);
+    }
+
+    /* легкие декоративные эмодзи-акценты поверх цвета */
+    .card-media::after {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 3rem;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .bangladesh::after {
+      content: "🇧🇩";
+    }
+    .honduras::after {
+      content: "🇭🇳";
+    }
+    .burundi::after {
+      content: "🇧🇮";
+    }
+    .friends::after {
+      content: "🎬";
+    }
+    .philippines::after {
+      content: "🇵🇭";
+    }
+    .nicaragua::after {
+      content: "🇳🇮";
+    }
+    .pride-prejudice::after {
+      content: "📽️";
+    }
+
+    .country-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: white;
+      font-family: monospace;
+      letter-spacing: 0.3px;
+      z-index: 2;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lesson-date {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 600;
+      color: #b47c48;
+      margin-bottom: 0.6rem;
+    }
+
+    .class-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+      color: #2c3e2f;
+    }
+
+    .country-name {
+      font-size: 0.8rem;
+      color: #6c584c;
+      margin-bottom: 1rem;
+      font-weight: 500;
+      border-left: 3px solid #e6b422;
+      padding-left: 8px;
+    }
+
+    .description {
+      color: #4a3b2f;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .class-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f5f0e6;
+      padding: 0.7rem 1.2rem;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #2c3e2f;
+      transition: all 0.2s;
+      width: 100%;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .class-link:hover {
+      background: #e6d9c8;
+      gap: 12px;
+    }
+
+    .arrow-icon {
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+
+    .class-link:hover .arrow-icon {
+      transform: translateX(4px);
+    }
+
+    /* ========== FOOTER ========== */
+    .footer-note {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      font-size: 0.75rem;
+      color: #8f7a66;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      border-top: 1px solid #e2d6c8;
+      margin-top: 2rem;
+    }
+
+    .footer-note a {
+      color: #5f8b6f;
+      text-decoration: none;
+    }
+
+    .footer-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== FIXED CALENDAR LINK (bottom-right) ========== */
+    .calendar-corner-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 40px;
+      padding: 8px 16px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.3px;
+    }
+
+    .calendar-corner-link:hover {
+      background: #1f5983;
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (max-width: 700px) {
+      .classes-container {
+        padding: 1rem 1rem 2.5rem;
+      }
+      .header h1 {
+        font-size: 1.9rem;
+      }
+      .grid {
+        gap: 1.25rem;
+      }
+      .calendar-corner-link {
+        bottom: 14px;
+        right: 14px;
+        padding: 6px 12px;
+        font-size: 0.65rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="classes-container">
+  <div class="header">
+    <div class="badge">
+      <span>✧ online school ✧</span>
+      <span class="logo">ENGOO</span>
+    </div>
+    <h1>Conversation <br class="mobile-break"> about the world</h1>
+    <div class="subtitle">real‑world topics & cultural exchange</div>
+  </div>
+
+  <div class="grid">
+    <!-- BANGLADESH CARD - Link 1 -->
+    <div class="class-card">
+      <div class="card-media bangladesh">
+        <div class="country-tag">🇧🇩 Bangladesh</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 5, 2026</div>
+        <div class="class-title">Conversation <br>about Bangladesh</div>
+        <div class="country-name">📍 South Asia · Rivers & rich heritage</div>
+        <div class="description">
+          Explore the vibrant culture, the Sundarbans mangrove forest, and the resilient spirit of Bangladesh. 
+          Discuss traditions, modern Dhaka, and unique linguistic identity in this engaging English lesson.
+        </div>
+        <a href="./2026%2005%2005%20Conversation%20about%20Bangladesh/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>📘 Open class material</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- HONDURAS CARD - Link 2 -->
+    <div class="class-card">
+      <div class="card-media honduras">
+        <div class="country-tag">🇭🇳 Honduras</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 6, 2026</div>
+        <div class="class-title">Conversation <br>about Honduras</div>
+        <div class="country-name">📍 Central America · Maya ruins & reefs</div>
+        <div class="description">
+          Dive into the heart of Honduras: from the Copán Ruins to the Caribbean Coast. Practice English 
+          while discussing biodiversity, culinary gems, and the warmth of Honduran hospitality.
+        </div>
+        <a href="./2026%2005%2006%20Conversation%20about%20Honduras/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>📘 Open class material</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- BURUNDI CARD - Link 3 -->
+    <div class="class-card">
+      <div class="card-media burundi">
+        <div class="country-tag">🇧🇮 Burundi</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 9, 2026</div>
+        <div class="class-title">Conversation <br>about Burundi</div>
+        <div class="country-name">📍 East Africa · Land of a thousand hills</div>
+        <div class="description">
+          Discover the drumming heart of Africa. Learn about Lake Tanganyika, Burundian coffee, and cultural 
+          resilience. Enhance your English fluency with fascinating stories from this beautiful nation.
+        </div>
+        <a href="./2026%2005%2009%20Conversation%20about%20Burundi/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>📘 Open class material</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- FRIENDS S1E1 CARD - May 12, 2026 -->
+    <div class="class-card">
+      <div class="card-media friends">
+        <div class="country-tag">🎬 Friends · S1E1</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 12, 2026 · 8:30 PM</div>
+        <div class="class-title">Conversation <br>about Friends (S1E1)</div>
+        <div class="country-name">📍 American Sitcom · Slang & metaphors</div>
+        <div class="description">
+          Dive into the pilot episode of “Friends” with tutor Ramisa and student Anatoly. Learn phrasal verbs 
+          (cut off, move in, ask out), idioms like “grab a spoon” and “you are a shoe”, plus the difference 
+          between “used to” and “would”. Perfect for improving everyday English through pop culture.
+        </div>
+        <a href="./2026%2005%2012%20Conversation%20about%20Friends%20(S1E1)/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>🎬 Open class material</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- PHILIPPINES CARD - NEW LESSON May 13, 2026 -->
+    <div class="class-card">
+      <div class="card-media philippines">
+        <div class="country-tag">🇵🇭 Philippines</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 13, 2026 · 8:00 PM</div>
+        <div class="class-title">Conversation <br>about the Philippines</div>
+        <div class="country-name">📍 Southeast Asia · 7,000+ islands & vibrant culture</div>
+        <div class="description">
+          Journey through the stunning landscapes of Palawan, Siargao, and Banaue. Tutor Jen and student Anatoly 
+          explore colonial fusion, indigenous roots, and modern Filipino identity. Learn advanced vocabulary: 
+          “pristine”, “laid‑back”, “sleeper hit”, “off the beaten path”, and “deeply imbued with spirituality”.
+        </div>
+        <a href="./2026%2005%2013%20Conversation%20about%20Philippine/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>🇵🇭 Open class material</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- NICARAGUA CARD - NEW LESSON May 14, 2026 -->
+    <div class="class-card">
+      <div class="card-media nicaragua">
+        <div class="country-tag">🇳🇮 Nicaragua</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 14, 2026 · 7:30 PM</div>
+        <div class="class-title">Conversation <br>about Nicaragua</div>
+        <div class="country-name">📍 Central America · Lakes, volcanoes & colonial charm</div>
+        <div class="description">
+          Explore Nicaragua’s “land of lakes and volcanoes” with tutor Riley and student Anatoly. 
+          Master vocabulary like “visceral”, “grandeur”, “set off”, and “blown over”. Learn about 
+          volcano boarding at Cerro Negro, the Masaya crater’s glowing lava, and the contrasting 
+          cities of Granada and León. A perfect blend of advanced English and cultural discovery.
+        </div>
+        <a href="https://item1000-collab.github.io/ai/Engoo/2026%2005%2014%20Conversation%20about%20Nicaragua/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>🇳🇮 Open class material</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- PRIDE AND PREJUDICE CARD - May 15, 2026 (NEW) -->
+    <div class="class-card">
+      <div class="card-media pride-prejudice">
+        <div class="country-tag">📽️ Jane Austen · Cinematic Masterclass</div>
+      </div>
+      <div class="card-content">
+        <div class="lesson-date">🗓️ May 15, 2026 · 7:00 PM</div>
+        <div class="class-title">Pride & Prejudice <br>reframed: 1940 vs 2005</div>
+        <div class="country-name">🎞️ Tutor Riley (Nicaragua) & Anatoly · Cultural & linguistic analysis</div>
+        <div class="description">
+          A deep dive into two cinematic adaptations of Jane Austen's masterpiece. Explore vocabulary 
+          like <strong>opulence, linger, aesthetic, dialectical clash, gilded frame, muddy hem</strong> 
+          and cinematic terms: static pictorialism vs kinetic camera. Discuss class, social realism, 
+          and the evolution of Elizabeth Bennet — from sweet-spirited (1940) to fiercely independent (2005). 
+          Includes dialogue extracts, cultural contrast, and the iconic muddy walk to Netherfield.
+        </div>
+        <a href="https://item1000-collab.github.io/ai/Engoo/2026%2005%2015%20Talking%20about%20Pride%20and%20Prejudice/index.html" 
+           class="class-link" 
+           target="_blank" 
+           rel="noopener noreferrer">
+          <span>📽️ Open Pride & Prejudice lesson</span>
+          <span class="arrow-icon">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <span>🎓 Engoo online English school — interactive conversation lessons</span>
+    <a href="#" aria-label="About Engoo style">About these materials</a>
+    <a href="#" aria-label="Help center">Need help?</a>
+  </div>
+  
+  <!-- SMALL CALENDAR LINK - BOTTOM RIGHT CORNER -->
+  <a href="./engoo%20calendar.html" 
+     class="calendar-corner-link" 
+     target="_blank" 
+     rel="noopener noreferrer"
+     aria-label="Engoo class calendar">
+    <span>📅</span> Engoo Calendar
+  </a>
+</div>
+</body>
+</html>
