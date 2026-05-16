@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>LEN English Classes | Conversation Lessons</title>
+  <title>LEN English Classes | The Golden Mean</title>
   <style>
     /* ========== RESET & GLOBAL ========== */
     * {
@@ -92,25 +92,12 @@
       box-shadow: 0 25px 40px -14px rgba(0, 0, 0, 0.15);
     }
 
-    /* цветные фоны (без картинок) */
-    .card-media {
-      height: 180px;
-      position: relative;
-      background-size: cover;
-      background-position: center;
-    }
-
-    /* чистые цвета, как в прошлой версии */
-    .bangladesh {
-      background: linear-gradient(135deg, #1e6b5e 0%, #20b2aa 100%);
-    }
-
-    /* стиль для новой карточки — теплые тона, в духе "золотой середины" */
+    /* стиль для карточки — теплые тона, "золотая середина" */
     .golden-mean {
       background: linear-gradient(135deg, #b47c48 0%, #e3b87c 100%);
     }
 
-    /* легкие декоративные эмодзи-акценты поверх цвета */
+    /* легкий декоративный эмодзи-акцент поверх цвета */
     .card-media::after {
       position: absolute;
       bottom: 20px;
@@ -119,11 +106,15 @@
       opacity: 0.2;
       pointer-events: none;
     }
-    .bangladesh::after {
-      content: "🇧🇩";
-    }
     .golden-mean::after {
       content: "⚖️✨";
+    }
+
+    .card-media {
+      height: 180px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
     }
 
     .country-tag {
@@ -237,7 +228,13 @@
       text-decoration: underline;
     }
 
-    /* ========== НЕТ КАЛЕНДАРЯ — УДАЛЕН БЛОК .calendar-corner-link ========== */
+    /* Центрирование карточки, если она одна — делаем сетку более изящной */
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: minmax(320px, 550px);
+        justify-content: center;
+      }
+    }
 
     @media (max-width: 700px) {
       .classes-container {
@@ -264,30 +261,7 @@
   </div>
 
   <div class="grid">
-    <!-- BANGLADESH CARD -->
-    <div class="class-card">
-      <div class="card-media bangladesh">
-        <div class="country-tag">🇧🇩 Bangladesh</div>
-      </div>
-      <div class="card-content">
-        <div class="lesson-date">🗓️ May 5, 2026</div>
-        <div class="class-title">Conversation <br>about Bangladesh</div>
-        <div class="country-name">📍 South Asia · Rivers & rich heritage</div>
-        <div class="description">
-          Explore the vibrant culture, the Sundarbans mangrove forest, and the resilient spirit of Bangladesh. 
-          Discuss traditions, modern Dhaka, and unique linguistic identity in this engaging English lesson.
-        </div>
-        <a href="./2026%2005%2005%20Conversation%20about%20Bangladesh/index.html" 
-           class="class-link" 
-           target="_blank" 
-           rel="noopener noreferrer">
-          <span>📘 Open class material</span>
-          <span class="arrow-icon">→</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- NEW CARD: THE GOLDEN MEAN (Anger, Friendliness & Social Grace) -->
+    <!-- ТОЛЬКО КАРТОЧКА THE GOLDEN MEAN (ссылка на Бангладеш удалена) -->
     <div class="class-card">
       <div class="card-media golden-mean">
         <div class="country-tag">⚖️ Philosophy in Action</div>
@@ -319,7 +293,7 @@
     <a href="#" aria-label="Help center">Need help?</a>
   </div>
 
-  <!-- КАЛЕНДАРЬ ПОЛНОСТЬЮ УБРАН — НЕТ НИКАКОЙ ССЫЛКИ НА len calendar.html -->
+  <!-- ССЫЛКА НА КАЛЕНДАРЬ И БАНГЛАДЕШ УДАЛЕНЫ ПОЛНОСТЬЮ -->
 </div>
 </body>
 </html>
