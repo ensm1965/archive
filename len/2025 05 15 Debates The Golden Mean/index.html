@@ -203,29 +203,30 @@
             padding-top: 1.2rem;
         }
 
-        /* presentation link button */
-        .presentation-link-box {
-            margin: 1.5rem 0 0.5rem 0;
+        /* PDF button only — moved to top, style refined */
+        .pdf-button-wrapper {
             text-align: center;
+            margin-bottom: 2rem;
+            margin-top: 0.5rem;
         }
-        .pres-link {
+        .pdf-button {
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: #2f5e3a;
+            background: #8b6c42;
             color: white;
             text-decoration: none;
-            padding: 0.7rem 1.6rem;
+            padding: 0.75rem 1.8rem;
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.9rem;
             font-family: system-ui, 'Segoe UI', sans-serif;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             border: 1px solid #e3c9a0;
         }
-        .pres-link:hover {
-            background: #1f4a2a;
+        .pdf-button:hover {
+            background: #6e5333;
             transform: translateY(-2px);
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
             gap: 14px;
@@ -249,6 +250,14 @@
 </head>
 <body>
 <div class="container">
+    <!-- PDF BUTTON: placed at the very top (under header but before main content) -->
+    <div class="pdf-button-wrapper">
+        <a href="https://ensm1965.github.io/archive/len/2025%2005%2015%20Debates%20The%20Golden%20Mean/The_Golden_Mean.pdf" class="pdf-button" target="_blank" rel="noopener">
+            <span>📄</span> PDF: The Golden Mean
+            <span>→</span>
+        </a>
+    </div>
+
     <div class="lesson-header">
         <div class="badge">📖 English through Philosophy & Culture</div>
         <h1>The Golden Mean: Anger, Friendliness & Social Grace</h1>
@@ -301,14 +310,6 @@
         <div class="dialogue-line"><span class="speaker">🎓 Speaker_1:</span><span class="dialogue-text"> "How to know if you're being honest or mean? Know the other person, have empathy. Sometimes people need sugarcoating, sometimes blunt truth. But mean well from the heart."</span></div>
         <div class="dialogue-line"><span class="speaker">🌟 Sheena:</span><span class="dialogue-text"> "Don't care too much what others think. You are the main character of your own story. Others are side characters."</span></div>
         <div class="dialogue-line"><span class="speaker">🎓 Speaker_1:</span><span class="dialogue-text"> "Beautiful advice. Remember your own words — giving advice is one thing, following it is another."</span></div>
-    </div>
-
-    <!-- PRESENTATION LINK - ADDED (relative path) -->
-    <div class="presentation-link-box">
-        <a href="./2025%2005%2015%20Debates%20The%20Golden%20Mean/index.html" class="pres-link" target="_blank" rel="noopener">
-            <span>📽️</span> Presentation: The Golden Mean (full material)
-            <span>→</span>
-        </a>
     </div>
 
     <!-- CULTURAL DEEP DIVE: LITERATURE & REAL-LIFE SCENARIOS -->
